@@ -61,4 +61,12 @@ resource "aws_route_table" "ibm_web_rt" {
     Name = "ibm-web-rt"
   }
 }
+#create route table for private
+resource "aws_route_table" "ibm_db_rt" {
+  vpc_id = aws_vpc.ibm_vpc.id
+
+  tags = {
+    Name = "ibm-db-rt"
+  }
+}
 

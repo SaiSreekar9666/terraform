@@ -40,4 +40,12 @@ resource "aws_subnet" "ibm_private_sn" {
     Name = "ibm-db-sn"
   }
 }
+# create internet gateways
+resource "aws_internet_gateway" "ibm_gw" {
+  vpc_id = aws_vpc.ibm_vpc.id
+
+  tags = {
+    Name = "ibm-gw"
+  }
+}
 

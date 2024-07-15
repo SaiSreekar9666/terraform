@@ -30,4 +30,13 @@ resource "aws_subnet" "ibm_app_sn" {
     Name = "ibm-app-sn"
   }
 }
+#create private subnet
+resource "aws_subnet" "ibm_private_sn" {
+  vpc_id     = aws_vpc.ibm_vpc.id
+  cidr_block = "10.0.34.0/20"
+  availability_zone = "us-east-1c"
 
+  tags = {
+    Name = "ibm-db-sn"
+  }
+}

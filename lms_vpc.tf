@@ -214,6 +214,33 @@ resource "aws_vpc_security_group_ingress_rule" "allow_web_sg_http" {
   ip_protocol       = "tcp"
   to_port           = 80
 }
+#App security group
+#security groups for public
+resource "aws_security_group" "ibm_app_sg" {
+  name        = "ibm_app_sg"
+  description = "Allow ssh inbound traffic and all outbound traffic"
+  vpc_id      = aws_vpc.ibm_vpc.id
+
+  tags = {
+    Name = "ibm-app-sg"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_app_sg_ssh" {
+  security_group_id = aws_security_group.ibm_app_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+resource "aws_vpc_security_group_ingress_rule" "allow_app_sg_http" {
+  security_group_id = aws_security_group.ibm_app_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 8080
+  ip_protocol       = "tcp"
+  to_port           = 8080
+}
+
 
 
 

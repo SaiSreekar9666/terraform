@@ -15,6 +15,7 @@ resource "aws_subnet" "ibm_public_sn" {
   vpc_id     = aws_vpc.ibm_vpc.id
   cidr_block = "10.0.0.0/20"
   availability_zone = "us-east-1a"
+  map_public_ip_on_launch= "true"
 
   tags = {
     Name = "ibm-web-sn"
@@ -25,6 +26,7 @@ resource "aws_subnet" "ibm_app_sn" {
   vpc_id     = aws_vpc.ibm_vpc.id
   cidr_block = "10.0.16.0/20"
   availability_zone = "us-east-1b"
+  map_public_ip_on_launch= "true"
 
   tags = {
     Name = "ibm-app-sn"
@@ -35,6 +37,7 @@ resource "aws_subnet" "ibm_private_sn" {
   vpc_id     = aws_vpc.ibm_vpc.id
   cidr_block = "10.0.32.0/20"
   availability_zone = "us-east-1c"
+  map_public_ip_on_launch="false"
 
   tags = {
     Name = "ibm-db-sn"
@@ -272,6 +275,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_db_sg_postgres" {
   ip_protocol       = "tcp"
   to_port           = 5432
 }
+
+
 
 
 

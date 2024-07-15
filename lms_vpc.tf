@@ -199,6 +199,7 @@ resource "aws_security_group" "ibm_web_sg" {
     Name = "ibm-web-sg"
   }
 }
+#security group rule -ssh
 
 resource "aws_vpc_security_group_ingress_rule" "allow_web_sg_ssh" {
   security_group_id = aws_security_group.ibm_web_sg.id
@@ -207,6 +208,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_web_sg_ssh" {
   ip_protocol       = "tcp"
   to_port           = 22
 }
+#security group rule -http
 resource "aws_vpc_security_group_ingress_rule" "allow_web_sg_http" {
   security_group_id = aws_security_group.ibm_web_sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -225,6 +227,7 @@ resource "aws_security_group" "ibm_app_sg" {
     Name = "ibm-app-sg"
   }
 }
+#security group rule -ssh
 
 resource "aws_vpc_security_group_ingress_rule" "allow_app_sg_ssh" {
   security_group_id = aws_security_group.ibm_app_sg.id
@@ -233,12 +236,41 @@ resource "aws_vpc_security_group_ingress_rule" "allow_app_sg_ssh" {
   ip_protocol       = "tcp"
   to_port           = 22
 }
+#security group rule -http
 resource "aws_vpc_security_group_ingress_rule" "allow_app_sg_http" {
   security_group_id = aws_security_group.ibm_app_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 8080
   ip_protocol       = "tcp"
   to_port           = 8080
+}
+#pvt security group
+#security groups for public
+resource "aws_security_group" "ibm_db_sg" {
+  name        = "ibm_db_sg"
+  description = "Allow ssh inbound traffic and all outbound traffic"
+  vpc_id      = aws_vpc.ibm_vpc.id
+
+  tags = {
+    Name = "ibm-db-sg"
+  }
+}
+#security group rule -ssh
+
+resource "aws_vpc_security_group_ingress_rule" "allow_db_sg_ssh" {
+  security_group_id = aws_security_group.ibm_db_sg.id
+  cidr_ipv4         = "10.0.0.0/16"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+#security group rule -postgres
+resource "aws_vpc_security_group_ingress_rule" "allow_db_sg_postgres" {
+  security_group_id = aws_security_group.ibm_db_sg.id
+  cidr_ipv4         = "10.0.0.0/16"
+  from_port         = 5432
+  ip_protocol       = "tcp"
+  to_port           = 5432
 }
 
 

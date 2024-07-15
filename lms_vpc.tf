@@ -83,5 +83,18 @@ resource "aws_route_table" "ibm_db_rt" {
     Name = "ibm-db-rt"
   }
 }
+#subnet association public
+resource "aws_route_table_association" "ibm_web_asso" {
+  subnet_id      = aws_subnet.ibm_public_sn.id
+  route_table_id = aws_route_table.ibm_web_rt.id
+}
+resource "aws_route_table_association" "ibm_app_asso" {
+  subnet_id      = aws_subnet.ibm_app_sn.id
+  route_table_id = aws_route_table.ibm_app_rt.id
+}
+
+
+
+
 
 

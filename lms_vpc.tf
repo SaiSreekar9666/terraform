@@ -92,6 +92,12 @@ resource "aws_route_table_association" "ibm_app_asso" {
   subnet_id      = aws_subnet.ibm_app_sn.id
   route_table_id = aws_route_table.ibm_app_rt.id
 }
+# subnet association pvt
+resource "aws_route_table_association" "ibm_db_asso" {
+  subnet_id      = aws_subnet.ibm_private_sn.id
+  route_table_id = aws_route_table.ibm_db_rt.id
+}
+
 
 
 

@@ -53,7 +53,7 @@ resource "aws_route_table" "ibm_web_rt" {
   vpc_id = aws_vpc.ibm_vpc.id
 
   route {
-    cidr_block = "0.0..0/0"
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.ibm_gw.id
   }
 
@@ -69,4 +69,5 @@ resource "aws_route_table" "ibm_db_rt" {
     Name = "ibm-db-rt"
   }
 }
+
 

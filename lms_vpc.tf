@@ -23,7 +23,7 @@ resource "aws_subnet" "ibm_public_sn" {
 
 resource "aws_subnet" "ibm_app_sn" {
   vpc_id     = aws_vpc.ibm_vpc.id
-  cidr_block = "10.0.15.0/20"
+  cidr_block = "10.0.16.0/20"
   availability_zone = "us-east-1b"
 
   tags = {
